@@ -611,9 +611,185 @@ print(type(num3))
 #===========================================================================
 #5. Looping (For, While)
 #============================================================================
+for i in range(5):
+    print(i,end=" ")
+
+print("\n====================================")
+
 for i in range(1,10):
     print(i,end=" ")
 
 print("\n====================================")
 for j in range (1,20,2):
     print(j,end=" ")
+
+
+print("\n====================================")
+
+my_lst = [1,2,3,4,5]
+for i in my_lst:
+    print(i,end=" ")
+
+print("\n====================================")
+
+my_lst = [1,2,3,4,5]
+for i in my_lst:
+    print(i,end=" ")
+else:
+    print("Ended")
+print("\n====================================")
+
+data = "Hello how are you"
+for i in data:
+    print(i,end=" ")
+
+print("\n====================================")
+
+#Find the factorial of the given number
+# num = int(input("Enter the number: "))
+# fact = 1
+# for i in range(1,num+1):
+#     fact*=i
+# print("factorial of given number is :", fact)
+
+# While loops
+# num = int(input("Enter the number: "))
+# t = 1
+# while t <=5:
+#     print("i am in loop:")
+#     t+=1
+
+# while True:
+#     age = int(input("Enter your age: "))
+#     if age > 18:
+#         print("You are able to vote")
+#     else:
+#         print("not able to vote")
+
+
+#Break and continue:
+
+for i in range(10):
+    if i == 5:
+        break
+    else:
+        print(i)
+
+print("\n====================================")
+
+for i in range(10):
+    if i == 6:
+        continue
+    else:
+        print(i)
+
+
+tup = (1,2,"apple")
+for i in tup:
+    if i == 2:
+        print("yes")
+    else:
+        print("No")
+
+# Practical Example 1: Write a Python program to print each fruit in a list using a simple for loop. List1 = ['apple', 'banana', 'mango']
+List1 = ['apple', 'banana', 'mango']
+for i in List1:
+    print(i)
+
+# Practical Example 2: Write a Python program to find the length of each string in List1.
+
+List1 = ['apple', 'banana', 'mango']
+for i in List1:
+    print(i," ", len(i))
+
+for i in List1:
+    count = 0
+    for j in i:
+        count +=1
+    print(f"length of {i} is {count}")
+
+# Practical Example 3: Write a Python program to find a specific string in the list using a simple for loop and if condition.
+List1 = ['apple', 'banana', 'mango']
+for i in List1:
+    if i == "banana":
+        print("Got the word")
+
+# Practical Example: 1) Write a Python program to skip 'banana' in a list using the continue statement. List1 = ['apple', 'banana', 'mango']
+
+List1 = ['apple', 'banana', 'mango']
+for i in List1:
+    if i == "banana":
+        continue
+    else:
+        print(i)
+# Practical Example: 2) Write a Python program to stop the loop once 'banana' is found using the break statement.
+
+List1 = ['apple', 'banana', 'mango']
+for i in List1:
+    if i == "banana":
+        break
+    else:
+        print(i)
+# List1 = ['apple', 'banana', 'mango','cherry','data']
+# word = str(input("Enter the word to be find in list: "))
+# for i in List1:
+#     if i == word:
+#         print("Got the word")
+#         break
+
+# Practical Example 4: Print this pattern using nested for loop:
+for i in range(1,6):
+    print("* "*i)
+
+#===========================================================
+#6. Generators and Iterators
+#===========================================================
+
+#Iterators
+# iter for any value (list,tuple, etc)
+#iter() fucntion is used to iter over the object
+#next() function is used to call the next elemenet in the iterable object
+data = iter(['Apple','mango','banana','cherry'])
+print(next(data))
+print(next(data))
+print(next(data))
+print(next(data))
+
+#Genarators
+#another way of using iterators is yield
+def do_sqaure(num):
+    for i in range(1,num+1):
+        yield i*i 
+
+a = do_sqaure(5)
+print(next(a))
+print(next(a))
+print(next(a))
+print(next(a))
+print(next(a))
+print("\n==============================================================")
+# Write a generator function that generates the first 10 even numbers.
+def generate_even_no():
+    num = 2
+    count = 0
+    while count <=10:
+        num+=2
+        count+=1
+        yield num
+       
+
+a = generate_even_no()
+print(a)
+# print(next(a))
+# print(next(a))
+# print(next(a))
+# print(next(a))
+# print(next(a))
+# print(next(a))
+# print(next(a))
+# print(next(a))
+
+for i in a:
+    print(i)
+
+# Write a Python program that uses a custom iterator to iterate over a list of integers.
