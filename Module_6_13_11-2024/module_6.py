@@ -793,3 +793,84 @@ for i in a:
     print(i)
 
 # Write a Python program that uses a custom iterator to iterate over a list of integers.
+
+
+#=============================================================
+#7. Functions and Methods
+#====================================================================
+# Practical Example: 1) Write a Python program to print "Hello" using a string.
+print("Hello World")
+
+# Practical Example: 2) Write a Python program to allocate a string to a variable and print it.
+my_str = "Hello World"
+print("my str: ",my_str)
+
+# Practical Example: 3) Write a Python program to print a string using triple quotes.
+my_str = """My String """
+print(my_str)
+
+#Practical Example: 4) Write a Python program to access the first character of a string using index value.
+my_str = "Good Morning Everyone"
+print(my_str[0])
+
+#Practical Example: 5) Write a Python program to access the string from the second position onwards using slicing.
+print(my_str[1:])
+
+# Practical Example: 6) Write a Python program to access a string up to the fifth character.
+print(my_str[0:5])
+
+#Practical Example: 7) Write a Python program to print the substring between index values 1 and 4
+print(my_str[1:4])
+
+# Practical Example: 8) Write a Python program to print a string from the last character.
+print(my_str[-1])
+
+# Practical Example: 9) Write a Python program to print every alternate character from the string starting from index 1.
+print(my_str[1::2])
+
+
+#Functions
+
+def greet(name,msg):
+    print(f"Good Morning {name} with greetings {msg}")
+
+greet("World","Good Morning")
+
+#Default Arguments
+
+def greet(name,msg="Good Morning"): #Make default argument at last
+    print(f"Good Morning {name} with greetings {msg}")
+
+greet("World","nice Noon")
+greet("Hello")
+
+#Keywords Arguments (**kwargs)
+
+def greet(**kwargs):
+    if kwargs:
+        print(f"HEllo {kwargs['name']} with greetings {kwargs['greet']}")
+
+greet(name="Hello World",greet="Nice Noon")
+
+#Arbitary Arguments
+
+def greet(*names):
+    for name in names:
+        print(f"Hello  {name}")
+
+greet("HEllo","world","This")
+
+#Recusrsion ==> Function calling itself with reduced parameters are known as recusrsion
+def fibo(num):
+    if num <=1 :
+        return num
+    else:
+        return (fibo(num-1) + fibo(num-2))
+
+num_input = int(input("Enter the number: "))
+if num_input <=0:
+    print("Enter positive numbers!!")
+else:
+    print("Fibonacci series!!!!!!!!!!!")
+    for i in range(num_input):
+        print(fibo(i))
