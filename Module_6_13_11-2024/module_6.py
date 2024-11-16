@@ -152,8 +152,8 @@ print(my_string[1])
 #It also allow the space to be count in the string
 print(my_string[-1])
 
-#my_stirng([start:step:stop])
-#it will give start:step:stop-1 
+#my_stirng([start:stop:step])
+#it will give start:stop-1:step 
 #String slicing
 print(my_string[0:2])
 print("---------",my_string[:5])
@@ -186,6 +186,7 @@ b = "   helloooo world  hello apple "
 print(b.strip())
 print(b.replace("hello","apple"))
 print(b.replace("l","b"))
+print("****************************************************")
 print(b.startswith("a"))
 print(b.rpartition("o"))
 print(b.isnumeric())
@@ -849,7 +850,7 @@ greet("Hello")
 def greet(**kwargs):
     if kwargs:
         print(f"HEllo {kwargs['name']} with greetings {kwargs['greet']}")
-
+  
 greet(name="Hello World",greet="Nice Noon")
 
 #Arbitary Arguments
@@ -861,16 +862,933 @@ def greet(*names):
 greet("HEllo","world","This")
 
 #Recusrsion ==> Function calling itself with reduced parameters are known as recusrsion
-def fibo(num):
-    if num <=1 :
-        return num
-    else:
-        return (fibo(num-1) + fibo(num-2))
+# def fibo(num):
+#     if num <=1 :
+#         return num
+#     else:
+#         return (fibo(num-1) + fibo(num-2))
 
-num_input = int(input("Enter the number: "))
-if num_input <=0:
-    print("Enter positive numbers!!")
+# num_input = int(input("Enter the number: "))
+# if num_input <=0:
+#     print("Enter positive numbers!!")
+# else:
+#     print("Fibonacci series!!!!!!!!!!!")
+#     for i in range(num_input):
+#         print(fibo(i))
+
+
+#============================================================================================
+#10. Advanced Python (map(), reduce(), filter(), Closures and Decorators)
+#============================================================================================
+# highre order functions
+#function takes function as a arguments they are known as higher order function
+
+def shout(text): 
+    return text.upper() 
+  
+def whisper(text): 
+    return text.lower() 
+  
+def greet(func): 
+    # storing the function in a variable 
+    greeting = func("Hi, I am created by a function passed as an argument.") 
+    print(greeting)  
+  
+greet(shout) 
+greet(whisper)
+
+#=========================
+#map()  ->returns a map objects (iterator)
+#map(function,iterator)  => iterator can ve list,tuple etc
+#================================
+def sqaure(n):
+    return n*n
+
+numbers = [1,2,3,4,5]
+data = map(sqaure,numbers)
+print(data) #give object
+print(list(data))
+
+def do_double(n):
+    return n*2
+
+my_numbers = (1,2,3,4,5)
+data = map(do_double,my_numbers)
+print(data)
+print(list(data))
+
+#using lambda function
+data_1 = map(lambda n:n*2,my_numbers)
+print(list(data_1))
+
+
+#========================================
+#filter
+#Filter the data we want and remove the remaining data just like the water filter do
+#filter(function,iterator)  => iterator can ve list,tuple etc
+            # |/
+            # return true or false
+#====================================================
+
+def filter_function(n):
+    return n>10       #It will return true or false
+
+my_filter_list = [1,2,32,14,15,6,7,81,9,0,10,100]
+my_new_filter_list = filter(filter_function,my_filter_list)
+my_new_filter_list_1 = filter(lambda n:n>10,my_filter_list)
+
+print(list(my_new_filter_list))
+print(list(my_new_filter_list_1))
+
+
+#===================================================
+#Reduce
+#reduce(func, iterable[, initial])
+# its reduces thedata and give the fina output
+#===================================================
+from functools import reduce
+
+my_reduce_lst = [1,2,3,4,5,6,7]
+
+# my_reduce_lst = [1,2,3,4,5,6,7]
+# It will take first two data : 1,2 performopration and give 1+2 = 3
+# my_reduce_lst = [3,3,4,5,6,7]
+# It will take first two data : 3,3 performopration and give 3+3 = 6
+# my_reduce_lst = [6,4,5,6,7]
+# It will take first two data : 3,3 performopration and give 6+4 = 10
+# my_reduce_lst = [10,5,6,7]
+
+# #and so on it will give final output
+
+
+def my_sum(x,y):
+    return x+y
+
+my_data = reduce(my_sum,my_reduce_lst)
+print(my_data)
+
+#using lambda function
+#we give x,y and in return we will get x+y
+my_data_1 = reduce(lambda x,y : x+y ,  my_reduce_lst)
+print(my_data_1)
+
+#====================================================
+# Introduction to closures and decorators.
+#=====================================================
+#Decorators => Function returns a function
+
+def greet(fun):
+    print("Good Morning")
+    fun()
+    print("Thanks")
+
+@greet  #decorator
+def hello():
+    print("Hello all")
+
+def ok():
+    print("ok")
+
+def greet_again(fun):
+    #Closures
+    def func_1():
+        print("Good Morning----------")
+        fun()
+        print("Thanks--------")
+    return func_1()
+
+@greet_again  #decorator
+def hello():
+    print("Hello all")
+
+#OR
+greet(ok)
+
+# Write a Python program to apply the map() function to square a list of numbers.
+my_list_map = [1,2,3,4,5]
+my_list_data = map(lambda x:x*x , my_list_map)
+print(list(my_list_data))
+
+# Write a Python program that uses reduce() to find the product of a list of numbers.
+my_list_reduce = [1,2,3,4,5]
+my_list_data = reduce(lambda x,y : x*y , my_list_reduce)
+print(my_list_data)
+
+# Write a Python program that filters out even numbers using the filter() function.
+my_list_filter = [1,2,3,4,5]
+my_list_data = filter(lambda x : x%2 == 0 , my_list_filter)
+print(list(my_list_data))
+
+#Simple Calculator
+
+# def add(a,b):
+#     return (f"The addition of {a} and {b} is {a+b}")
+
+# def sub(a,b):
+#     return (f"The subtraction of {a} and {b} is {a-b}")
+
+# def mul(a,b):
+#     return (f"The multiplication of {a} and {b} is {a*b}")
+
+# def div(a,b):
+#     return (f"The division of {a} and {b} is {a/b}")
+
+# print("Please Eneter the number accordingly:\n 1.Addition \n 2.Subtraction \n 3.Multiplication \n 4.Division")
+# choice = int(input("Enter the choice: "))
+# num1 = int(input("Enter the number 1: "))
+# num2 = int(input("Enter the number 2: "))
+
+# if choice == 1:
+#     data = add(num1,num2)
+#     print(data)
+# elif choice == 2:
+#     data = sub(num1,num2)
+#     print(data)
+
+# elif choice == 3:
+#     data = mul(num1,num2)
+#     print(data)
+
+# elif choice ==4 :
+#     try:
+#         data =div(num1,num2)
+#         print(data)
+#     except Exception as e:
+#         print(f"The exception error is : {e}")
+
+# else:
+#     print("Enter the proper number between 1 to 4")
+
+# Sorting and reversing a list using sort(), sorted(), and reverse().
+numbers = [1,21,32,40,15,6]
+numbers.sort()
+print(numbers)
+
+
+numbers = [10,121,232,940,315,6]
+a  = sorted(numbers)
+print(a)
+
+numbers = [7,4,2,7,3,1]
+numbers.sort(reverse= True)
+print(numbers)
+
+#Write a Python program to insert elements into an empty list using a for loop and append().
+lst = []
+for i in range(10):
+    lst.append(i)
+print(lst)
+
+#7) Write a Python program to convert a list into a tuple
+lst = [1,2,3,4]
+my_tup = tuple(lst)
+print(type(my_tup))
+
+#8) Write a Python program to create a tuple with multiple data types.
+my_tuple = tuple()
+print(type(my_tuple))
+print(my_tuple)
+#wecannot add data in the tuple
+
+#9) Write a Python program to concatenate two tuples into one.
+t1= (1,2,3)
+t2=(4,5,6)
+t3 = t1+t2
+print(t3)
+
+#Write a Python program to access the value of the first index in a tuple.
+print(t3[0])
+
+#Write a Python program to access values between index 1 and 5 in a tuple.
+print(t3[1:5])
+
+#Write a Python program to access alternate values between index 1 and 5 in a tuple.
+print(t3[1:5:2])
+
+#12) Write a Python program to access the value from the last index in a tuple
+print(t3[-1])
+
+#
+key = [1,2,3]
+values = ['apple','mango','banana']
+
+my_dict = dict(zip(key,values))
+print(my_dict)
+
+#Counting occurrences of characters in a string using dictionaries
+def count_characters(string):
+    count_dict = {}
+    for i in string:
+        if i in count_dict:
+            count_dict[i] += 1
+        else:
+            count_dict[i] = 1
+    return count_dict
+
+
+my_string = "Good Morning Guyss"
+my_dict = count_characters(my_string)
+print(my_dict)
+
+#LAmbda duntions are annoymous function thatis function without a name
+# ex:- 
+x = lambda x : x**2
+print(x(10))
+
+x = lambda a,c,b : a+b+c
+print(x(1,2,3))
+
+#9. Modules
+#=========================================
+
+# import module_6
+# from module_6 import my_name,do_squares
+# print(my_name)
+
+# print(do_squares(2))
+def my_name():
+    print("My name is helo world")
+
+def do_squares(n):
+    return n*2
+
+import random
+list1 = [1, 2, 3, 4, 5, 6]
+print(random.choice(list1))
+print(random.random())
+random.seed(5)
+print(random.random())  #0.6229016948897019 will always get seed of 5 as this number
+
+
+mylist = ["apple", "banana", "cherry"]
+
+print(random.choices(mylist, weights = [10, 1, 1], k = 14))
+#apple -> 10 times min
+#banana min 1 time
+#cherry min 1 time
+
+#total list of length will be 14
+
+print(random.choices(list1))
+random.shuffle(list1)
+print(list1)
+print(random.randint(1,101)) #includes both start and stop value
+print(random.randrange(10,100,10)) # inclueds start but nit stop
+
+import math 
+print(math.pi) #3.141592653589793
+print(math.e) #2.718281828459045
+print(math.ceil(9.3)) #10
+print(math.floor(9.3)) #9
+print(math.pow(3,2)) #3**2 # 9
+print(math.sqrt(25)) # 5
+print(math.log(10)) #2.302585092994046
+print(math.factorial(7)) #5040
+
+#3. Opening and Closing Files
+f = open("demofile.txt", "r")
+# print(f.read())
+#print(f.read(5)) # read first 5 characters
+print(f.readline())
+print(f.readline())
+print(f.readline())
+
+for i in f:
+    print(i)
+
+f.close()
+
+# for i in f:
+#     print("--------------",i)
+#ValueError: I/O operation on closed file.
+
+#r for read file
+# a append at last of file
+#w will over write evry content
+f = open("demofile.txt", "a")
+f.write("This data will appendat the last")
+print(f.close())
+
+
+f = open("demofile.txt", "r")
+print(f.read())
+f.close()
+
+f = open("demofile.txt", "w")
+f.write("ok thisis data \n ok")
+f.close()
+
+
+f = open("demofile.txt", "r")
+print(f.read())
+
+#f =open("new_file.txt","x") 
+#f =open("new_file_1.txt","x")  #create anewfile
+
+
+#r+ ==> read and write in file
+f = open("new_file_1.txt","r+")
+f.write("hellloooo")
+print(f.read())
+f.close()
+
+#w+ ==> add reads to existing write mode
+f=  open("new_file_1.txt","w+")
+f.write("1")
+f.write("2")
+print(f.read())
+f.close()
+
+try:
+    f=  open("new_file_1.txt","w+")
+    f.write("1")
+    f.write("2")
+    print(f.read()) 
+except:
+    print("ok")
+finally:
+    f.close()
+
+#Another way of reading and writing
+with open ("new_file_1.txt","w+") as f:
+    f.write("hello world \n")
+    f.write("Welcome")
+    # f.seek() # move cursor to the begining
+    f.seek(4) # move cursor to 5th position
+    lines = f.read()
+    print(lines)
+
+# for i in lines:
+#     print(i)
+#a+  append,read
+
+with open('file.txt', 'a+') as f:
+    f.write("4")
+    lines = f.read()
+    print(lines)
+    len_line = f.readline()
+    print(len_line)
+    print(len(len_line))
+
+with open('file_1.txt','w+') as f:
+    f.write("ok")
+
+# with open('file_2.txt','r+') as f:
+#     f.write("ok")
+#It ill throw error
+
+#If the file exists, w+ truncates the file and opens it; a+ opens it without truncating.
+#readline() reads and returns a single line from a file, while readlines() reads all lines in a file and returns them as a list of strings, with each list item representing one line.
+
+
+f = open("file.txt","w+")
+my_data = ['apple','mango']
+for i in my_data:
+    f.write(f"My name is {i}\n")
+    f.seek(0)
+print(f.read())
+
+f = open("file.txt","w+")
+my_data = ['apple','mango']
+lst = []
+for i in my_data:
+    lst.append(i)
+f.writelines(lst)
+print(f.read())
+print(f.tell()) # tell the current cursor posotion
+
+#Exception handling
+
+a = 10
+b = 0
+#print(a/b) #ZeroDivisionError: division by zero
+try:
+    print(a/b)
+except Exception as e:
+    print("excepetion:",e)
+finally:
+    print("Done")
+
+
+try:
+    a = 10
+    b=0
+    print("the resut is :",a//b)
+except ZeroDivisionError:
+    print("You got zero dovidon error")
+except ValueError:
+    print('you gotvalue Error')
+except Exception as e:
+    print("Exception:------",e)
 else:
-    print("Fibonacci series!!!!!!!!!!!")
-    for i in range(num_input):
-        print(fibo(i))
+    print("you got nothing")
+finally:
+    print("Finally")
+
+try:
+    a = 10
+    b=9
+    c
+    print("the resut is :",a//b,c+a)
+except ZeroDivisionError:
+    print("You got zero dovidon error")
+except ValueError:
+    print('you gotvalue Error')
+except Exception as e:
+    print("Exception:------",e)
+else:
+    print("you got nothing")
+finally:
+    print("Finally")
+
+
+class MyCustomError(Exception):
+    def __init__(self,error,error_code):
+        self.error = error
+        self.error_code = error_code
+        print(f"You got the error {self.error} with code {self.error_code}")
+
+
+def divide(a, b):
+    if b == 0:
+        raise MyCustomError("Division by zero is not allowed", 400)
+    return a / b
+
+
+try:
+    a = divide(1,0)
+    print(a)
+except MyCustomError as e:
+    print("e------->",e)
+
+
+#10. Search and Match Functions
+import re
+
+text = "Hello, welcome to Python world!"
+search = re.search(r"Python", text) # search in the entire string
+print("search:",search)
+if search:
+    print("search found")
+else:
+    print("No search found")
+
+match = re.match(r"He",text) #searches at thestarting of te string
+print("match:",match)
+if match:
+    print("match found")
+else:
+    print("No match found")
+
+pattern = r"\d+"  # Matches one or more digits
+text = "Hello 7854 number is 12345"
+match = re.search(pattern, text)
+print(match.group())  # Output: 12345
+
+#OOPS
+#Inheritance
+
+class Employee:
+    #Constructor
+    #When object is initilaized the constructor is called first
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+    
+    def showDetails(self):
+        print(f"the name of employee is {self.name} and age is {self.age}")
+
+class Programmer(Employee):
+    def __init__(self,name,age,lang):
+        super().__init__(name,age) #Overiding init method with super keyword
+        self.lang = lang
+    def company_data(self):
+        print("Company data in program class")
+    def showProgram(self):
+        print("I will do python program")
+    
+    def showlang(self):
+        print(f"I will do {self.lang} program")
+
+class Company(Programmer):
+
+    def company_data(self):
+        print("Company data in company class")
+
+    def show_company(self):
+        super().company_data()
+
+a = Employee("Meera","98268")  #object of class
+print(a.name)  # accessing variables of class
+print(a.age)
+a.showDetails()  #accessing methids of class
+
+b = Employee("Rathod","96544")
+b.showDetails()
+
+c = Programmer("Raj","7546","Html")
+c.showProgram()
+
+d= Programmer("Rohan","8546",'Java')
+d.showlang()
+
+e=Company("Rohit","9546",'CSS')
+e.company_data()
+e.show_company()
+
+#Method overloading => Compile time polymorphism
+def add(datatype,*args):
+    if datatype == 'int':
+        ans = 0
+        for i in args:
+            ans+=i
+        print("Ans :-",ans)
+    if datatype == 'str':
+        ans =''
+        for i in args:
+            print(i)
+            print(ans)
+            ans+=i
+        print("Ans in string ",ans)
+
+add('int',1,2,3,4)
+add('str',"apple","mango","banana")
+
+#Dunder methods or magic methods
+#they are defined in class
+#__init__
+
+class Employee:
+    name= "Hello"
+
+    def __len__(self):
+        i=0
+        for c in self.name:
+            i+=1
+        return i
+
+e = Employee()
+print(e.name)
+print(len(e))  # it is a dunder method
+
+
+class Employee:
+    def __init__(self,name):
+        self.name = name
+
+    def __len__(self):
+        i=0
+        for c in self.name:
+            i+=1
+        return i
+
+    def __str__(self):
+        return f"My name is {self.name} str"
+
+    def __repr__(self):
+        return f"My name is {self.name} repr"
+
+    def __call__(self):
+        return "Hello i am good"
+
+    #it there in not str then it will go to repr
+
+e = Employee("Helloooo")
+#print(e) #without __str__  #<__main__.Employee object at 0x00000243A8170A90>
+print(e) #with __str__   My name is Helloooo
+print(str(e))
+print(repr(e))
+print(e()) # --> call function
+print(e.name)
+print(len(e))  # it is a dunder method
+
+
+#Method Overiding --> acces methods of parent to child
+class Shape:
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+
+    def area(self):
+        return self.x * self.y
+
+class Circle(Shape):
+    def __init__(self,radius):
+        #    for calling this    print(super().area()) #calling the area of parent class
+        # we have to call the super init
+        super().__init__(radius,radius)
+        self.radius = radius
+
+    def area(self):
+        print(super().area()) #calling the area of parent class
+        return 3.14*self.radius*self.radius
+
+rectangle = Shape(3,5)
+print("The area of rectangle is:",rectangle.area())
+
+circle = Circle(4)
+print("The area of circle is:" , circle.area())
+
+#operator overloading
+class Vector:
+    def __init__(self,i,j,k):
+        self.i = i
+        self.j = j
+        self.k = k
+
+    def __str__(self):
+        return f"{self.i}i + {self.j}j + {self.k}k"
+
+    #print(v1+v2) #TypeError: unsupported operand type(s) for +: 'Vector' and 'Vector'
+    # to resolve this issue we have to create a add funtion
+
+    def __add__(self,x):
+        #Will return the string
+        #return f"{self.i +x.i}i + {self.j + x.j}j + {self.k + x.k}k"
+        return Vector(self.i+x.i,self.j+x.j,self.k+x.k)
+v1 = Vector(1,2,3)
+print(v1)
+
+v2 = Vector(4,5,6)
+print(v2)
+
+#print(v1+v2) #TypeError: unsupported operand type(s) for +: 'Vector' and 'Vector'
+#after defing the add function
+
+print(v1+v2)
+print(type(v1+v2)) # class str
+print(type(v1))
+
+#now i want to get the result of two vector as vector then
+
+#Inheritance
+# ->Single
+# ->multiple
+# ->multilevel
+# ->heriachial
+# ->hybrid
+# 1-Single
+class Parent:
+    def func1(self):
+        print("This func is in parent class.")
+  
+class Child(Parent):
+    def func2(self):
+        print("This func is in child class.")
+ 
+object = Child()
+object.func1()
+object.func2()
+
+#Multiple Inheritance: 
+class GrandParent:
+    def func1(self):
+        print("This func is in GrandParent class.")
+        print("Self.Grand Parent Name",{self.grand_parent})
+
+    def show(self):
+        print("hello in GrandParent")
+
+class Parent:
+    def func2(self):
+        print("This func is in Parent class.")
+        print("Self. Parent Name",{self.parent})
+
+    def show(self):
+        print("hello in Parent")
+
+class Child(GrandParent,Parent):
+    def func3(self):
+        print("This is child class" , {self.grand_parent},{self.parent})
+
+c = Child()
+c.grand_parent = "Grand"
+c.parent = "Parent"
+c.func1()
+c.func2()
+c.func3()
+c.show() #hello in GrandParent  -- becasue GrandParent class is inherit first
+
+print(Child.mro()) #method resolution order
+# [<class '__main__.Child'>, <class '__main__.GrandParent'>, <class '__main__.Parent'>, <class 'object'>]
+
+#multilevel Inheritance
+class GrandParent:
+    def func1(self):
+        print("This func is in GrandParent class.")
+        print("Self.Grand Parent Name",{self.grand_parent})
+
+    def show(self):
+        print("hello in GrandParent")
+
+class Parent(GrandParent):
+    def func2(self):
+        print("This func is in Parent class.")
+        print("Self. Parent Name",{self.parent})
+
+    def show(self):
+        print("hello in Parent")
+        GrandParent.show(self)
+
+class Child(Parent):
+    def func3(self):
+        print("This is child class" , {self.grand_parent},{self.parent})
+
+
+c = Child()
+c.grand_parent = "Grand"
+c.parent = "Parent"
+c.func1()
+c.func2()
+c.func3()
+c.show()
+
+#Herirachial inheritance
+
+class A:
+    def a_show(self):
+        print("A")
+
+
+class B(A):
+    def b_show(self):
+        print("B")
+
+class C(A):
+    def c_show(self):
+        print("C")
+
+c = C()
+c.c_show()
+c.a_show()
+print(C.mro())
+
+b = B()
+b.b_show()
+b.a_show()
+
+#hybrid inheritance
+#when we use more than one inheritance
+
+class A:
+    pass
+
+class B(A):
+    pass
+
+class C(A):
+    pass
+
+class D(B,A):
+    pass
+
+d = D()
+print(D.mro())
+
+#Plymorphism
+#ability to take varoius form
+# ->operator level polymorphism/
+#1+2 ==> addition
+#"abc"+"def"  ==> Concatatation
+
+
+# ->Function level polymorphism
+# len([1,2,4])
+# len({1,2,3})
+# len("abfdfghd")
+
+# ->class Level polymorphism
+
+class A:
+    def p(self):
+        return "Function in p in A"
+
+class B:
+    def p(self):
+        return "Function in p in B"
+
+a = A()
+print(a.p())
+
+b=B()
+print(b.p())
+
+for i in a,b:
+    print(i.p())
+
+
+#Abstarction in python
+
+#python does not directly support Abstraction
+#we have to use ABC class
+# (Abstarct Base Class)
+# we cannot access abstract class directly 
+from abc import ABC,abstractmethod
+class Computer(ABC):
+    @abstractmethod
+    def process(self):
+        return "Running"
+
+    @abstractmethod
+    def process_1(self):
+        print("a")
+
+
+class Computer_1(Computer):
+    @abstractmethod
+    def process(self):
+        return ("Computer_1")
+
+# com = Computer()
+# print(com.process())
+
+
+class Mouse(Computer):
+    def process(self):
+        return "Running in mouse"
+
+    def process_1(self):
+        return "process_1"
+
+    def show(self):
+        return "Mouse Works"
+
+mouse = Mouse()
+print(mouse.process())
+print(mouse.process_1())
+
+print(mouse.__dir__())
+
+
+#Encapsulation
+#bundling of data (attributes) and methods (functions) that operate on the data into a single unit or class.
+# It also involves restricting direct access to some of an object's components,
+
+class BankAccount:
+    def __init__(self,name,salary,age):
+        self.name = name  #public
+        self._salary = salary #proteced  only use within class and subclass
+        self.__age = age #private
+
+    def set_salary(self):
+        self._salary = 78399
+        return f'{self._salary}'
+
+class BankAccountHolder(BankAccount):
+    def show_holder(self):
+        return f"{self._salary} in class BankAccountHolder "
+
+bank_account = BankAccount("Rohan",2000,56)
+print(bank_account._salary)
+
+# print(bank_account.__age) # you can not directly access the private data like this it will thorw you error
+print(bank_account._BankAccount__age) # we can accessit like this
+
+print(bank_account.name)
+
+print(bank_account.set_salary())
+
+bank_account_holder = BankAccountHolder("Rita",893300,89)
+print(bank_account_holder.show_holder())
+
+
